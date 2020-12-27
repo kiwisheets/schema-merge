@@ -1,0 +1,29 @@
+trigger:
+  branches:
+    include:
+      - "*"
+
+pr:
+  branches:
+    include:
+      - "*"
+
+resources:
+  - repo: self
+
+variables:
+  tag: "$(Build.BuildNumber)"
+  repository: "kiwisheets/schema-merge"
+  isMain: $[in(variables['Build.SourceBranch'], 'refs/heads/main')]
+
+steps:
+  - task: Npm@1
+    displayName: 'npm install'
+    inputs:
+      verbose: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Release'
+    inputs:
+      PathtoPublish: '$(System.DefaultWorkingDirectory)'
+      ArtifactName: Merge
