@@ -19,6 +19,7 @@ variables:
 steps:
   - task: Npm@1
     displayName: 'npm install'
+    enabled: false
     inputs:
       verbose: false
 
